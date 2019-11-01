@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Pregunta from './components/Pregunta'
 import Formulario from './components/Formulario'
 import Listado from './components/Listado'
+import ControlPresupuesto from './components/ControlPresupuesto'
 
 function App() {
   // state
@@ -16,10 +17,27 @@ function App() {
     if (primerGasto) {
       const listadoGastos = [...gastos, gasto];
       guardarGastos(listadoGastos)
+
+      //restar el presupuesto
+      const presupuestoRestante = restante - gasto.cantidadGasto;
+      guardarRestante(presupuestoRestante)
       //una vez que se agrega, lo ponemos como false
       guardarprimerGasto(false)
     }
-  },[primerGasto])
+  },[primerGasto, gasto, gastos, restante])
+
+  const eliminarGasto = (id, cantidadGasto) => {
+    console.log(gastos);
+    let newGastos = [...gastos]
+    newGastos = newGastos.filter(gasto => gasto.id !== id)
+    guardarGastos(newGastos)
+    console.log(cantidadGasto);
+    const presupuestoRestante = restante + cantidadGasto
+    guardarRestante(presupuestoRestante) 
+    //newGastos = newGastos.filter(gasto => gasto.id !== id)
+    //guardarGastos(newGastos)
+    //guardarprimerGasto(true)
+  }
 
   return (
     <div className="App container">
@@ -41,7 +59,11 @@ function App() {
 
                 <div className="one-half column">
                   <Listado 
-                    gastos={gastos}></Listado>
+                    gastos={gastos}
+                    eliminarGasto={eliminarGasto}></Listado>
+                    <ControlPresupuesto
+                    presupuesto={presupuesto}
+                    restante={restante}></ControlPresupuesto>
                 </div>
               </div>
             )

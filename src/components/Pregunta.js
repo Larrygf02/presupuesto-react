@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from 'react'
+import Error from './Error'
 
 function Pregunta(props) {
-    const { guardarPresupuesto } = props
+    const { guardarPresupuesto, guardarPreguntaPresupuesto } = props
     const [ cantidad, guardarCantidad ] = useState(0);
     const [ error, guardarError ] = useState(false);
 
@@ -16,11 +17,12 @@ function Pregunta(props) {
         // si se pasa la validacion pasar el presupuesto
         guardarError(false)
         guardarPresupuesto(cantidad)
+        guardarPreguntaPresupuesto(false)
     }
     return (
         <Fragment>
             <h2>Coloca tu presupuesto</h2>
-            {error ? <p className="alert alert-danger error">El presupuesto es incorrecto</p>: null}
+            {error ? <Error mensaje="El presupuesto es incorrecto"></Error>: null}
             <form
                 onSubmit={agregarPresupuesto}>
                 <input type="number"

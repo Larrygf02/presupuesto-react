@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import Error from './Error'
 
 function Pregunta(props) {
-    const { guardarPresupuesto, guardarPreguntaPresupuesto } = props
+    const { guardarPresupuesto, guardarPreguntaPresupuesto, guardarRestante } = props
     const [ cantidad, guardarCantidad ] = useState(0);
     const [ error, guardarError ] = useState(false);
 
@@ -17,6 +17,7 @@ function Pregunta(props) {
         // si se pasa la validacion pasar el presupuesto
         guardarError(false)
         guardarPresupuesto(cantidad)
+        guardarRestante(cantidad)
         guardarPreguntaPresupuesto(false)
     }
     return (
